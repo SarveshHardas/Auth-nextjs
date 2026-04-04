@@ -1,7 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 connect();
 
@@ -54,6 +54,7 @@ export async function POST(request: NextRequest) {
       { status: 201 },
     );
   } catch (error: any) {
+    console.error("SIGNUP ERROR:", error);
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
