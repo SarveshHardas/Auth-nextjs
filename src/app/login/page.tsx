@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { NextResponse } from "next/server";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -27,17 +26,16 @@ export default function LoginPage() {
     }, [user])
 
     const onLogin = async () => {
-        //TODO: Signup API call
         try {
             setLoading(true);
             const response = await axios.post("/api/users/login", user);
             console.log("Login successful", response.data);
             toast.success("Login successful");
-            router.push("/profile");
-        } catch (error: any) {
-            console.log(error.message);
-            toast.error(error.message);
-            return NextResponse.json({ message: error.message }, { status: 500 });
+            router.push(`/profile/${response.data?.user?.username}`);
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : 'An error occurred';
+            console.log(message);
+            toast.error(message);
         } finally {
             setLoading(false);
         }
@@ -77,7 +75,7 @@ export default function LoginPage() {
             />
             <button
                 onClick={onLogin}
-                className={`bg-blue-500 text-white p-2 rounded ${buttonDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
+                className={`bg-blue-500 my-4 text-white p-2 rounded ${buttonDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
             >
                 Login
             </button>
