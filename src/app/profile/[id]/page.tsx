@@ -21,7 +21,6 @@ export default function UserProfile({ params }: Props) {
       toast.success("Logout successful");
       router.push("/login");
     } catch (error: unknown) {
-      console.log((error as Error).message);
       toast.error((error as Error).message);
     }
   }

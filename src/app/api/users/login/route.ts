@@ -55,7 +55,6 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error: unknown) {
-    console.log(error);
     return NextResponse.json({ message: (error as Error).message }, { status: 500 });
   }
 }

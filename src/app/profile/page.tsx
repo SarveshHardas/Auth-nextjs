@@ -12,7 +12,6 @@ export default function ProfilePage() {
   useEffect(() => {
     const getUserDetails = async () => {
       const res = await axios.get("/api/users/me");
-      console.log(res.data);
       setData(res.data.user.username);
     }
 
