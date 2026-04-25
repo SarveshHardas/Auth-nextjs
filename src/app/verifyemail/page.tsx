@@ -16,6 +16,7 @@ export default function VerifyEmailPage() {
             setVerified(true)
         } catch (error: unknown) {
             setError(true)
+            console.log((error as Error))
         }
     }, [])
 
